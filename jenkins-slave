@@ -29,7 +29,8 @@
 # * JENKINS_SECRET : agent secret, if not set as an argument
 # * JENKINS_AGENT_NAME : agent name, if not set as an argument
 echo " Starting Docker daemon..... ">>/var/log/docker.log
-sudo dockerd -p /run/docker.pid  >> /var/log/docker.log 2>&1 &
+sudo dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 -p /run/docker.pid --storage-driver vfs >> /var/log/docker.log 2>&1 &
+
 
 if [ $# -eq 1 ]; then
 
